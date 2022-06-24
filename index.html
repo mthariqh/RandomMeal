@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Meal Idea Generator</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row text-center">
+            <h1>
+                Hungry?
+            </h1>
+            <h3>Get a random meal by clicking the button below</h3>
+            <br>
+            <button class="button-primary" id="btn">Get Meal 🍔</button>
+
+        </div>
+        <div id="meal" class="row meal"></div>
+    </div>
+
+    <script>
+        const btn = document.getElementById('btn');
+
+        btn.addEventListener('click', () => {
+            fetch('https://www.themealdb.com/api/json/v1/1/random.php')
+                .then(res => res.json())
+                .then(res => {
+                createMeal(res.meals[0]);
+            });
+        });
+
+        const createMeal = (meal) => {
+            const newInnerHTML = `
+            <div class="row" style="color:Brown; text-align: center;">
+            <h1>${meal.strMeal}</h1>
+            <img src="${meal.strMealThumb}" alt="Meal Image">
+            </div>`
+
+        document.getElementById('meal').innerHTML = newInnerHTML;
+        }
+
+    </script>
+</body>
+
+</html>
